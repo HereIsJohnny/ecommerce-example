@@ -12,6 +12,11 @@ type Category = {
 	order: number
 }
 
+type CategoryDTO = {
+	name: string
+	order: number
+}
+
 type Product = {
 	id: number
 	name: string

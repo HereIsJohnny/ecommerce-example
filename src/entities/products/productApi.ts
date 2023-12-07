@@ -22,4 +22,13 @@ export class ProductApiClass extends BaseApiClass {
 	public async getProduct(id: string) {
 		return this.get<ProductDTO, Product>(`/products/${id}`, this.mapper)
 	}
+
+	public async getCategories() {
+		return this.get<CategoryDTO[], Category[]>('/categories', (data) =>
+			data.map((category) => ({
+				name: category.name,
+				order: category.order,
+			})),
+		)
+	}
 }
