@@ -3,24 +3,23 @@ import {
     Box,
     Button,
     Card,
-    HStack,
     Image,
-    Link,
     Skeleton,
     Stack,
     StackProps,
     Text,
-    useColorModeValue,
+    useColorModeValue
 } from '@chakra-ui/react'
 import { PriceTag } from '../PriceTag'
 
 interface Props {
     product: Product
     rootProps?: StackProps
+    onAdd?: () => void
 }
 
 export const ProductCard = (props: Props) => {
-    const { product, rootProps } = props
+    const { product, rootProps, onAdd = () => { } } = props
     const { name, imageSrc, price } = product
     return (
         <Card p={{ base: '4', md: '4' }}>
@@ -43,7 +42,7 @@ export const ProductCard = (props: Props) => {
                     <PriceTag price={price} currency="USD" />
                 </Stack>
                 <Stack align="center">
-                    <Button colorScheme="blue" width="full">
+                    <Button colorScheme="blue" width="full" onClick={onAdd}>
                         Add to cart
                     </Button>
                 </Stack>

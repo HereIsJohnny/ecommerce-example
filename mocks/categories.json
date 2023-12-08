@@ -1,0 +1,34 @@
+[
+    {
+        "name": "Oils",
+        "order": 100
+    },
+    {
+        "name": "Cleanser",
+        "order": 200
+    },
+    {
+        "name": "Actives",
+        "order": 300
+    },
+    {
+        "name": "Lotion",
+        "order": 400
+    },
+    {
+        "name": "Mask",
+        "order": 500
+    },
+    {
+        "name": "Sunscreen",
+        "order": 600
+    },
+    {
+        "name": "Haircare",
+        "order": 700
+    },
+    {
+        "name": "Exfoliator",
+        "order": 800
+    }
+]
