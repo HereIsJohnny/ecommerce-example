@@ -29,6 +29,11 @@ export class BaseApiClass {
 			throw new Error(error.message)
 		}
 
+		// Check for 204 No Content
+		if (res.status === 204) {
+			return {} as T // Or handle as needed
+		}
+
 		const data = await res.json()
 
 		return data as T

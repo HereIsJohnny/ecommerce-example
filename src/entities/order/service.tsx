@@ -13,3 +13,11 @@ export function useGetOrder(id?: number) {
 export function useAddToCart(orderId: number) {
     return useMutation((patch: PatchOrder) => orderApi.patchOrder(orderId, patch));
 }
+
+export function usePostOrder() {
+    return useMutation((order: PostOrder) => orderApi.createNewOrder(order));
+}
+
+export function useBuyOrder() {
+    return useMutation((orderId: number) => orderApi.buyOrder(orderId));
+}

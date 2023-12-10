@@ -16,6 +16,16 @@ class OrderApiClass extends BaseApiClass {
 			action: 'update_quantity',
 		})
 	}
+
+	public async postOrder(order: PostOrder) {
+		return this.post<{ id: number }, PostOrderDTO>(`/orders`, order)
+	}
+
+	public async buyOrder(id: number) {
+		return this.post<{}, { id: number }>(`/orders/${id}/buy`, {
+			id,
+		})
+	}
 }
 
 export const orderApi = new OrderApiClass()

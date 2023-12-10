@@ -21,7 +21,7 @@ const categoryMapper = (data: CategoryDTO): Category => {
 	}
 }
 
-export class ProductApiClass extends BaseApiClass {
+class ProductApiClass extends BaseApiClass {
 	public async getProducts() {
 		const data = await this.get<ProductDTO[]>('/products')
 		return data.map(productMapper)

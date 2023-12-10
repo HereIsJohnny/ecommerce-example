@@ -10,7 +10,7 @@ import { api } from '~/entities/products/api';
 import { USE_PRODUCTS_KEY, USE_PRODUCT_CATEGORIES } from '~/entities/products/service';
 
 export default function Home() {
-	const { productsByCategory, categories, isLoading: isProductsLoading } = useProducts();
+	const { productsByCategory, categories } = useProducts();
 	const { addToCart, getFromCart } = useOrder();
 
 	const memoAddToCart = useCallback((props: OrderProduct) => addToCart(props), [addToCart]);
@@ -27,16 +27,31 @@ export default function Home() {
 					<Box
 						maxW="7xl"
 						mx="auto"
-						pl={{ base: '8', md: '16', lg: '32' }}
-						pr={{ base: '4', md: '8', lg: '12' }}
 						py={{ base: '6', md: '8', lg: '12' }}
+						px={{
+							base: '4',
+							sm: '6',
+							lg: '8',
+						}}
 					>
 
-						<Heading size="4xl" key={category.name} mb={{
-							base: '4',
-							md: '6',
-							lg: '8',
-						}}>
+						<Heading size="4xl"
+							position='sticky'
+							top='0'
+							left='0'
+							w={'100%'}
+							bg='white'
+							zIndex={1}
+							py={{
+								base: '4',
+								md: '6',
+								lg: '8',
+							}}
+							key={category.name} mb={{
+								base: '4',
+								md: '6',
+								lg: '8',
+							}}>
 							{category.name}
 						</Heading>
 						<Box
@@ -70,16 +85,14 @@ export async function getStaticProps() {
 	const queryClient = new QueryClient()
 
 	// prefetch data on the server
-	await queryClient.prefetchQuery(USE_PRODUCTS_KEY, () => api.getProducts())
-	await queryClient.prefetchQuery(USE_PRODUCT_CATEGORIES, () => api.getProductCategories())
-
-	console.log('dehydrate', dehydrate(queryClient))
+	await Promise.all([
+		queryClient.prefetchQuery(USE_PRODUCTS_KEY, () => api.getProducts()),
+		queryClient.prefetchQuery(USE_PRODUCT_CATEGORIES, () => api.getProductCategories()),
+	])
 
 	return {
 		props: {
-			// dehydrate query cache
 			dehydratedState: dehydrate(queryClient),
-			abc: 'abc'
 		},
 	}
 }

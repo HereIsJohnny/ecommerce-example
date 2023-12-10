@@ -2,8 +2,6 @@ import {
     AspectRatio,
     Box,
     Button,
-    Card,
-    Center,
     HStack,
     Image,
     Skeleton,
@@ -44,36 +42,34 @@ const ProductCard = (props: Props) => {
     };
 
     return (
-        <Card p={{ base: '4', md: '4' }}>
-            <Stack spacing={{ base: '4', md: '5' }} {...rootProps}>
-                <Box position="relative">
-                    <AspectRatio ratio={4 / 3}>
-                        <Image
-                            src={imageSrc}
-                            alt={name}
-                            draggable="false"
-                            fallback={<Skeleton />}
-                            borderRadius={{ base: 'md', md: 'xl' }}
-                            loading='lazy'
-                        />
-                    </AspectRatio>
-                </Box>
-                <Stack spacing="1">
-                    <Text fontWeight="medium" color={useColorModeValue('gray.700', 'gray.400')}>
-                        {name}
-                    </Text>
-                    <PriceTag price={price} currency="USD" />
-                </Stack>
-                <Stack align="center">
-                    {isProductInCart && <HStack w={'100%'} justifyContent={'space-between'}><Button onClick={() => handleChangeQuantity(currentQuantity - 1)}>-</Button> <span>{currentQuantity}</span> <Button onClick={() => handleChangeQuantity(currentQuantity + 1)}>+</Button></HStack>}
-                    {!isProductInCart &&
-                        <Button colorScheme="blue" width="full" onClick={() => onAdd({ id, quantity: 1 })}>
-                            Add to cart
-                        </Button>
-                    }
-                </Stack>
+        <Stack spacing={{ base: '4', md: '5' }} {...rootProps}>
+            <Box position="relative">
+                <AspectRatio ratio={4 / 3}>
+                    <Image
+                        src={imageSrc}
+                        alt={name}
+                        draggable="false"
+                        fallback={<Skeleton />}
+                        borderRadius={{ base: 'md', md: 'xl' }}
+                        loading='lazy'
+                    />
+                </AspectRatio>
+            </Box>
+            <Stack spacing="1">
+                <Text fontWeight="medium" color={useColorModeValue('gray.700', 'gray.400')}>
+                    {name}
+                </Text>
+                <PriceTag price={price} currency="USD" />
             </Stack>
-        </Card>
+            <Stack align="center">
+                {isProductInCart && <HStack w={'100%'} justifyContent={'space-between'}><Button onClick={() => handleChangeQuantity(currentQuantity - 1)}>-</Button> <span>{currentQuantity}</span> <Button onClick={() => handleChangeQuantity(currentQuantity + 1)}>+</Button></HStack>}
+                {!isProductInCart &&
+                    <Button colorScheme="blue" width="full" onClick={() => onAdd({ id, quantity: 1 })}>
+                        Add to cart
+                    </Button>
+                }
+            </Stack>
+        </Stack>
 
     )
 }

@@ -1,11 +1,11 @@
-import { Box, Circle, Fade, Icon, VStack } from "@chakra-ui/react";
+import { Box, Circle, Fade, Icon, Stack } from "@chakra-ui/react";
 import Link from "next/link";
 import { CiShoppingCart } from "react-icons/ci";
 import { useOrder } from "~/entities/order";
 
 export default function Home() {
-    const { totalItems } = useOrder();
-    // const totalItems = orderDetails?.products.reduce((acc, ({ quantity })) => acc + product.quantity, 0) || 0;
+    const { totalItems, buyOrder } = useOrder();
+
     return (
         <Box as="nav" py={{
             base: '4',
@@ -18,17 +18,18 @@ export default function Home() {
             position={'fixed'}
             left={'0'}
             right={'0'}
+            zIndex={2}
         >
-            <VStack alignItems={'flex-end'} justifyContent={'center'}>
-                <Link href="/cart">
-                    <Icon as={CiShoppingCart} fontSize="4xl" color="gray.600" />
+            <Stack alignItems={'flex-end'} justifyContent={'center'}>
+                <Link onClick={e => { e.preventDefault(); buyOrder() }} href="/cart">
+                    <Icon as={CiShoppingCart} fontSize="3em" color="gray.600" />
                     <Fade in={totalItems > 0}>
                         <Circle size='2em' fontSize={'small'} bg='tomato' color='white' position='absolute' top={4} right={4}>
                             {totalItems}
                         </Circle>
                     </Fade>
                 </Link>
-            </VStack >
+            </Stack >
         </Box >
     )
 }

@@ -1,9 +1,19 @@
 import { createContext, useMemo, useState } from "react";
+import { orderApi } from "./api";
+import { useMutation } from "react-query";
 
-export const OrderContext = createContext<OrderContext>({ orderDetails: undefined, addToCart: () => { }, getFromCart: () => undefined, totalItems: 0 });
+export const OrderContext = createContext<OrderContext>({
+    orderDetails: undefined,
+    addToCart: () => { },
+    getFromCart: () => undefined,
+    totalItems: 0,
+    buyOrder: () => { }
+});
 
 export function OrderProvider({ children }: { children: React.ReactNode }) {
     const [state, setState] = useState<Order>({ products: [] });
+    const useCreateOrder = useMutation((order: PostOrder) => orderApi.createNewOrder(order))
+    const useBuyOrder = useMutation((orderId: number) => orderApi.buyOrder(orderId));
 
     function addToCart(product: OrderProduct) {
         setState((order) => {
@@ -52,11 +62,25 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
 
     const totalItems = useMemo(() => Object.values(state.products).reduce((acc, { quantity }) => acc + quantity, 0), [state.products]);
 
+    async function buyOrder() {
+        const response = await useCreateOrder.mutateAsync({
+            // move to service
+            products: Object.values(state.products).map(({ id, quantity }) => ({ id, quantity }))
+        });
+
+        await useBuyOrder.mutateAsync(response.id);
+
+        setState({ products: [] });
+
+        return true;
+    }
+
     return <OrderContext.Provider value={{
         orderDetails: state,
         addToCart,
         getFromCart,
         totalItems,
+        buyOrder,
     }}>
         {children}
     </OrderContext.Provider>
