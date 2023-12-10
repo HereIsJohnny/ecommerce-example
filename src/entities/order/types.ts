@@ -16,3 +16,21 @@ type PatchOrder = {
 type PostOrder = {
 	products: { id: number; quantity: number }[]
 }
+
+type OrderProduct = {
+	id: number
+	quantity: number
+}
+
+type Order = {
+	id?: number
+	products: {
+		id: number
+		quantity: number
+	}[]
+}
+
+type OrderContext = {
+	orderDetails?: Order
+	addToCart: (product: OrderProduct) => void
+}

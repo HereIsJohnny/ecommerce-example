@@ -1,6 +1,6 @@
 import { BaseApiClass } from '../../lib/BaseApiClass'
 
-export class OrderApiClass extends BaseApiClass {
+class OrderApiClass extends BaseApiClass {
 	public async createNewOrder(order: PostOrder) {
 		return this.post<{ id: number }>('/orders', order)
 	}
@@ -17,3 +17,5 @@ export class OrderApiClass extends BaseApiClass {
 		})
 	}
 }
+
+export const orderApi = new OrderApiClass()

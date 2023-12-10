@@ -1,19 +1,16 @@
+import { Box, Heading, Stack } from '@chakra-ui/react';
+import { useCallback, useMemo } from 'react';
+import Menu from '~/components/Menu';
 import { ProductCard } from '~/components/ProductCard';
 import { ProductGrid } from '~/components/ProductGrid';
-import { Box, Heading, Stack } from '@chakra-ui/react';
-import Menu from '~/components/Menu';
-import groupBy from 'lodash/groupBy';
-import { useMemo } from 'react';
-import { useProductCategories, useProducts } from '~/entities/product/useProduct';
-import { useOrder } from '~/entities/order/useOrder';
+import { useOrder } from '~/entities/order';
+import { useProducts } from '~/entities/products';
 
 export default function Home() {
-	const { data: products } = useProducts();
-	const { data: categories } = useProductCategories();
-	const productsByCategory = useMemo(() => groupBy(products, 'category.name'), [products]);
-	const { orderDetails, addToCart } = useOrder();
+	const { productsByCategory, categories, isLoading: isProductsLoading } = useProducts();
+	const { addToCart } = useOrder();
 
-	console.log('orderDetails', orderDetails)
+	const memoAddToCart = useCallback((props: OrderProduct) => addToCart(props), [addToCart]);
 
 	return (
 		<Stack spacing={{
@@ -45,7 +42,14 @@ export default function Home() {
 						>
 							<ProductGrid key={category.name}>
 								{productsByCategory[category.name]?.map((product) => (
-									<ProductCard key={product.id} product={product} onAdd={() => addToCart(product)} />
+									<ProductCard
+										key={product.id}
+										id={product.id}
+										imageSrc={product.imageSrc}
+										price={product.price}
+										name={product.name}
+										onAdd={memoAddToCart}
+									/>
 								))}
 							</ProductGrid>
 						</Box>

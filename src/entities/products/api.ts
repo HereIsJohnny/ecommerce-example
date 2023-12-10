@@ -34,6 +34,7 @@ export class ProductApiClass extends BaseApiClass {
 
 	public async getProductCategories() {
 		const data = await this.get<CategoryDTO[]>('/categories')
+		// move to the service
 		return data.sort((a, b) => a.order - b.order).map(categoryMapper)
 	}
 }

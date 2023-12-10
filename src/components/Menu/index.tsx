@@ -1,7 +1,7 @@
 import { Box, Circle, Fade, Icon, VStack } from "@chakra-ui/react";
 import Link from "next/link";
 import { CiShoppingCart } from "react-icons/ci";
-import { useOrder } from "~/entities/order/useOrder";
+import { useOrder } from "~/entities/order";
 
 export default function Home() {
     const { orderDetails } = useOrder();

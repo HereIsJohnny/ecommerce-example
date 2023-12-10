@@ -9,18 +9,32 @@ import {
     StackProps,
     Text,
     useColorModeValue
-} from '@chakra-ui/react'
-import { PriceTag } from '../PriceTag'
+} from '@chakra-ui/react';
+import { memo } from 'react';
+import { PriceTag } from '../PriceTag';
 
 interface Props {
-    product: Product
+    price: number;
+    name: string;
+    imageSrc: string;
     rootProps?: StackProps
-    onAdd?: () => void
+    onAdd?: (props: OrderProduct) => void
+    id: number,
 }
 
-export const ProductCard = (props: Props) => {
-    const { product, rootProps, onAdd = () => { } } = props
-    const { name, imageSrc, price } = product
+const areEqual = (prevProps: Props, nextProps: Props) => {
+    // Compare the props you want to use for memoization
+    return (
+        prevProps.imageSrc === nextProps.imageSrc &&
+        prevProps.price === nextProps.price &&
+        prevProps.name === nextProps.name &&
+        prevProps.id === nextProps.id
+    );
+};
+
+const ProductCard = (props: Props) => {
+    const { price, name, imageSrc, rootProps, onAdd = () => { }, id } = props
+    console.log('rendering product card', name)
     return (
         <Card p={{ base: '4', md: '4' }}>
             <Stack spacing={{ base: '4', md: '5' }} {...rootProps}>
@@ -32,6 +46,7 @@ export const ProductCard = (props: Props) => {
                             draggable="false"
                             fallback={<Skeleton />}
                             borderRadius={{ base: 'md', md: 'xl' }}
+                            loading='lazy'
                         />
                     </AspectRatio>
                 </Box>
@@ -42,7 +57,7 @@ export const ProductCard = (props: Props) => {
                     <PriceTag price={price} currency="USD" />
                 </Stack>
                 <Stack align="center">
-                    <Button colorScheme="blue" width="full" onClick={onAdd}>
+                    <Button colorScheme="blue" width="full" onClick={() => onAdd({ id, quantity: 1 })}>
                         Add to cart
                     </Button>
                 </Stack>
@@ -51,3 +66,9 @@ export const ProductCard = (props: Props) => {
 
     )
 }
+
+const MemoizedProductCard = memo(ProductCard, areEqual)
+
+export {
+    MemoizedProductCard as ProductCard
+};
