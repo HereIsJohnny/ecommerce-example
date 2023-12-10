@@ -1,10 +1,13 @@
 import { Box, Heading, Stack } from '@chakra-ui/react';
 import { useCallback, useMemo } from 'react';
+import { QueryClient, dehydrate } from 'react-query';
 import Menu from '~/components/Menu';
 import { ProductCard } from '~/components/ProductCard';
 import { ProductGrid } from '~/components/ProductGrid';
 import { useOrder } from '~/entities/order';
 import { useProducts } from '~/entities/products';
+import { api } from '~/entities/products/api';
+import { USE_PRODUCTS_KEY, USE_PRODUCT_CATEGORIES } from '~/entities/products/service';
 
 export default function Home() {
 	const { productsByCategory, categories, isLoading: isProductsLoading } = useProducts();
@@ -60,4 +63,23 @@ export default function Home() {
 			}
 		</Stack >
 	)
+}
+
+export async function getStaticProps() {
+
+	const queryClient = new QueryClient()
+
+	// prefetch data on the server
+	await queryClient.prefetchQuery(USE_PRODUCTS_KEY, () => api.getProducts())
+	await queryClient.prefetchQuery(USE_PRODUCT_CATEGORIES, () => api.getProductCategories())
+
+	console.log('dehydrate', dehydrate(queryClient))
+
+	return {
+		props: {
+			// dehydrate query cache
+			dehydratedState: dehydrate(queryClient),
+			abc: 'abc'
+		},
+	}
 }
