@@ -9,7 +9,7 @@ export function useProducts() {
     const isLoading = productsQ.isLoading || categoriesQ.isLoading;
     const isError = productsQ.isError || categoriesQ.isError;
 
-    const productsByCategory = useMemo(() => { console.log('recalculationg'); return groupBy(productsQ.data, 'category.name') }, [productsQ.data]);
+    const productsByCategory = useMemo(() => groupBy(productsQ.data, 'category.name'), [productsQ.data]);
 
     return {
         isLoading,
