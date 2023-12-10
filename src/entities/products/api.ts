@@ -38,3 +38,5 @@ export class ProductApiClass extends BaseApiClass {
 		return data.sort((a, b) => a.order - b.order).map(categoryMapper)
 	}
 }
+
+export const api = new ProductApiClass()
