@@ -8,7 +8,7 @@ import { useProducts } from '~/entities/products';
 
 export default function Home() {
 	const { productsByCategory, categories, isLoading: isProductsLoading } = useProducts();
-	const { addToCart } = useOrder();
+	const { addToCart, getFromCart } = useOrder();
 
 	const memoAddToCart = useCallback((props: OrderProduct) => addToCart(props), [addToCart]);
 
@@ -49,6 +49,7 @@ export default function Home() {
 										price={product.price}
 										name={product.name}
 										onAdd={memoAddToCart}
+										currentQuantity={getFromCart(product.id)?.quantity || 0}
 									/>
 								))}
 							</ProductGrid>

@@ -1,21 +1,19 @@
-import { createContext, useState } from "react";
+import { createContext, useMemo, useState } from "react";
 
-export const OrderContext = createContext<OrderContext>({ orderDetails: undefined, addToCart: () => { } });
+export const OrderContext = createContext<OrderContext>({ orderDetails: undefined, addToCart: () => { }, getFromCart: () => undefined, totalItems: 0 });
 
 export function OrderProvider({ children }: { children: React.ReactNode }) {
-    const [order, setOrder] = useState<Order>({ products: [] });
+    const [state, setState] = useState<Order>({ products: [] });
 
     function addToCart(product: OrderProduct) {
-        setOrder((order) => {
-            const index = order.products.findIndex((p) => p.id === product.id);
-            const existingProduct = index > -1;
+        setState((order) => {
+            const existingProduct = state.products[product.id];
             const isDeleteAction = product.quantity === 0;
 
             // delete product
             if (existingProduct && isDeleteAction) {
-                const newProducts = [...order.products];
-                newProducts.splice(index, 1);
-
+                const newProducts = { ...order.products };
+                delete newProducts[product.id];
                 return {
                     ...order,
                     products: newProducts,
@@ -24,8 +22,8 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
 
             // update product quantity
             if (existingProduct) {
-                const newProducts = [...order.products];
-                newProducts[index].quantity = product.quantity;
+                const newProducts = { ...order.products };
+                newProducts[product.id].quantity = product.quantity;
 
                 return {
                     ...order,
@@ -36,21 +34,29 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
             // add new product
             return {
                 ...order,
-                products: [
+                products: {
                     ...order.products,
-                    {
+                    [product.id]: {
                         id: product.id,
                         quantity: 1,
                     }
-                ]
+                }
             }
         })
 
     }
 
+    function getFromCart(productId: number) {
+        return state.products[productId];
+    }
+
+    const totalItems = useMemo(() => Object.values(state.products).reduce((acc, { quantity }) => acc + quantity, 0), [state.products]);
+
     return <OrderContext.Provider value={{
-        orderDetails: order,
+        orderDetails: state,
         addToCart,
+        getFromCart,
+        totalItems,
     }}>
         {children}
     </OrderContext.Provider>

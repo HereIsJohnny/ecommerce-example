@@ -4,8 +4,8 @@ import { CiShoppingCart } from "react-icons/ci";
 import { useOrder } from "~/entities/order";
 
 export default function Home() {
-    const { orderDetails } = useOrder();
-    const totalItems = orderDetails?.products.reduce((acc, product) => acc + product.quantity, 0) || 0;
+    const { totalItems } = useOrder();
+    // const totalItems = orderDetails?.products.reduce((acc, ({ quantity })) => acc + product.quantity, 0) || 0;
     return (
         <Box as="nav" py={{
             base: '4',

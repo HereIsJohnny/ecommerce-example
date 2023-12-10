@@ -3,6 +3,8 @@ import {
     Box,
     Button,
     Card,
+    Center,
+    HStack,
     Image,
     Skeleton,
     Stack,
@@ -20,6 +22,7 @@ interface Props {
     rootProps?: StackProps
     onAdd?: (props: OrderProduct) => void
     id: number,
+    currentQuantity: number,
 }
 
 const areEqual = (prevProps: Props, nextProps: Props) => {
@@ -28,13 +31,18 @@ const areEqual = (prevProps: Props, nextProps: Props) => {
         prevProps.imageSrc === nextProps.imageSrc &&
         prevProps.price === nextProps.price &&
         prevProps.name === nextProps.name &&
-        prevProps.id === nextProps.id
+        prevProps.id === nextProps.id &&
+        prevProps.currentQuantity === nextProps.currentQuantity
     );
 };
 
 const ProductCard = (props: Props) => {
-    const { price, name, imageSrc, rootProps, onAdd = () => { }, id } = props
-    console.log('rendering product card', name)
+    const { price, name, imageSrc, rootProps, onAdd = () => { }, id, currentQuantity } = props
+    const isProductInCart = currentQuantity > 0
+    const handleChangeQuantity = (quantity: number) => {
+        onAdd({ id, quantity })
+    };
+
     return (
         <Card p={{ base: '4', md: '4' }}>
             <Stack spacing={{ base: '4', md: '5' }} {...rootProps}>
@@ -57,9 +65,12 @@ const ProductCard = (props: Props) => {
                     <PriceTag price={price} currency="USD" />
                 </Stack>
                 <Stack align="center">
-                    <Button colorScheme="blue" width="full" onClick={() => onAdd({ id, quantity: 1 })}>
-                        Add to cart
-                    </Button>
+                    {isProductInCart && <HStack w={'100%'} justifyContent={'space-between'}><Button onClick={() => handleChangeQuantity(currentQuantity - 1)}>-</Button> <span>{currentQuantity}</span> <Button onClick={() => handleChangeQuantity(currentQuantity + 1)}>+</Button></HStack>}
+                    {!isProductInCart &&
+                        <Button colorScheme="blue" width="full" onClick={() => onAdd({ id, quantity: 1 })}>
+                            Add to cart
+                        </Button>
+                    }
                 </Stack>
             </Stack>
         </Card>

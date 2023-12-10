@@ -24,13 +24,12 @@ type OrderProduct = {
 
 type Order = {
 	id?: number
-	products: {
-		id: number
-		quantity: number
-	}[]
+	products: Record<number, OrderProduct>
 }
 
 type OrderContext = {
 	orderDetails?: Order
 	addToCart: (product: OrderProduct) => void
+	getFromCart: (productId: number) => OrderProduct | undefined
+	totalItems: number
 }
