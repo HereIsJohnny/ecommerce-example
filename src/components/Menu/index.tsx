@@ -49,12 +49,7 @@ export default function Home() {
             <Stack alignItems={'flex-end'} justifyContent={'center'} >
                 {/* TODO: refactor to button */}
                 <Link onClick={e => { e.preventDefault(); handleBuyOrder() }} href="/cart" aria-label="Shopping Cart">
-                    {
-                        status === 'loading' && <Spinner />
-                    }
-                    {
-                        status !== 'loading' && <Icon as={CiShoppingCart} fontSize="3em" color="gray.600" />
-                    }
+                    <Icon as={CiShoppingCart} fontSize="3em" color="gray.600" />
                     <Fade in={totalItems > 0}>
                         <Circle role="status" size='2em' fontSize={'small'} bg='tomato' color='white' position='absolute' top={4} right={4}>
                             {totalItems}
