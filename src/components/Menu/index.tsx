@@ -6,8 +6,6 @@ import { useOrder } from "~/entities/order";
 
 export default function Home() {
     const { totalItems, buyOrder } = useOrder();
-    // TODO: move this state to the parent component. 
-    const [status, setStatus] = useState<'loading' | 'success' | 'error'>('idle');
     const toast = useToast()
 
     async function handleBuyOrder() {
