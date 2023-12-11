@@ -28,5 +28,5 @@ test('can buy product', async ({ page }) => {
 
 	await page.locator("[aria-label='Shopping Cart']").click()
 
-	// add success notification
+	await expect(page.getByText('Order bought successfully.')).toBeVisible()
 })

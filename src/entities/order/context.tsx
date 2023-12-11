@@ -62,17 +62,22 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
 
     const totalItems = useMemo(() => Object.values(state.products).reduce((acc, { quantity }) => acc + quantity, 0), [state.products]);
 
-    async function buyOrder() {
-        const response = await useCreateOrder.mutateAsync({
-            // move to service
-            products: Object.values(state.products).map(({ id, quantity }) => ({ id, quantity })),
-        });
+    async function buyOrder(): Promise<{ orderStatus: string }> {
+        try {
+            const response = await useCreateOrder.mutateAsync({
+                // move to service
+                products: Object.values(state.products).map(({ id, quantity }) => ({ id, quantity })),
+            });
+            await useBuyOrder.mutateAsync(response.id);
 
-        await useBuyOrder.mutateAsync(response.id);
+            setState({ products: [] });
 
-        setState({ products: [] });
+        } catch (error) {
+            return { orderStatus: 'error' };
+        }
 
-        return true;
+        return { orderStatus: 'success' };
+
     }
 
     return <OrderContext.Provider value={{
