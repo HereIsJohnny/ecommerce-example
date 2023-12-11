@@ -1,53 +1,33 @@
-# SFE take-home exercise
+# GetHarley FE Home Task
 
-Thank you for taking the time to work on our take-home exercise!
+Thank you for taking the time to review the result of my take-home exercise.
 
-## Getting Started
+[Watch the Loom Video](https://www.loom.com/share/7f0986ed022a4185b2d6ebe438f9b452) 🎥
 
-First, run the development server:
+## Link
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+https://ecommerce-example-mu.vercel.app/
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## My Approach
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Due to the time limitation, I decided to sharpen my focus. My idea was that this task is not about completing every requirement but rather about showcasing my approach toward architecture, optimization, problem-solving, and UI/UX. This is why I covered things like:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+-   Data layering: API layer, service layer, use[Domain] hooks.
+-   Domain-driven design (DDD): 2 domains, order, and products.
+-   React optimizations: controlling the number of re-renders.
+-   Quick first meaningful paint: static page generation.
+-   API response data normalization.
+-   Handling server errors, mainly with retries.
+-   Responsive design and components approach.
+-   Valuable end-to-end (e2e).
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## What Was Missed (Due to Time Constraints)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Tests
-
-This repository comes with `jest` and `playwright` already set up. You are completely free to change its default settings or not using them completely. We're providing sensible defaults to avoid you spending time setting up common tools.
-
-Run unit tests
-
-```bash
-npm run unit_test
-# or
-yarn unit_test
-# or
-pnpm unit_test
-```
-
-Run e2e tests
-
-```bash
-npm run e2e
-# or
-yarn e2e
-# or
-pnpm e2e
-```
-
-### MSW
-
-[MSW](https://mswjs.io/) is available if needed for mocks during tests. To run the app using the mocks set `NEXT_PUBLIC_API_MOCKING=enabled`
+-   Cart subpage: However, you can buy products by clicking on the shopping cart.
+-   Some todos were not addressed.
+-   Unit tests for the business logic, i.e., adding a product to the cart.
+-   Integration tests that test against mocked data.
+-   SEO optimization.
+-   Cleaner category listing, i.e., displaying 4 products + a "show all" toggle.
+-   Review of linting and prettier rules.
+-   Conventional commit messages.
