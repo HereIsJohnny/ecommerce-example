@@ -1,34 +1,14 @@
 [
     {
-        "name": "Oils",
-        "order": 100
-    },
-    {
-        "name": "Cleanser",
-        "order": 200
-    },
-    {
-        "name": "Actives",
+        "name": "Category Three",
         "order": 300
     },
     {
-        "name": "Lotion",
-        "order": 400
+        "name": "Category One",
+        "order": 100
     },
     {
-        "name": "Mask",
-        "order": 500
-    },
-    {
-        "name": "Sunscreen",
-        "order": 600
-    },
-    {
-        "name": "Haircare",
-        "order": 700
-    },
-    {
-        "name": "Exfoliator",
-        "order": 800
+        "name": "Category Two",
+        "order": 200
     }
 ]

@@ -12,8 +12,8 @@ export const OrderContext = createContext<OrderContext>({
 
 export function OrderProvider({ children }: { children: React.ReactNode }) {
     const [state, setState] = useState<Order>({ products: [] });
-    const useCreateOrder = useMutation((order: PostOrder) => orderApi.createNewOrder(order))
-    const useBuyOrder = useMutation((orderId: number) => orderApi.buyOrder(orderId));
+    const useCreateOrder = useMutation((order: PostOrder) => orderApi.createNewOrder(order), { retry: 10 })
+    const useBuyOrder = useMutation((orderId: number) => orderApi.buyOrder(orderId), { retry: 10 });
 
     function addToCart(product: OrderProduct) {
         setState((order) => {
@@ -65,7 +65,7 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
     async function buyOrder() {
         const response = await useCreateOrder.mutateAsync({
             // move to service
-            products: Object.values(state.products).map(({ id, quantity }) => ({ id, quantity }))
+            products: Object.values(state.products).map(({ id, quantity }) => ({ id, quantity })),
         });
 
         await useBuyOrder.mutateAsync(response.id);

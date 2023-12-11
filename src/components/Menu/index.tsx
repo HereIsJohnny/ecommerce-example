@@ -20,16 +20,16 @@ export default function Home() {
             right={'0'}
             zIndex={2}
         >
-            <Stack alignItems={'flex-end'} justifyContent={'center'}>
+            <Stack alignItems={'flex-end'} justifyContent={'center'} aria-label="Shopping Cart">
                 <Link onClick={e => { e.preventDefault(); buyOrder() }} href="/cart">
                     <Icon as={CiShoppingCart} fontSize="3em" color="gray.600" />
                     <Fade in={totalItems > 0}>
-                        <Circle size='2em' fontSize={'small'} bg='tomato' color='white' position='absolute' top={4} right={4}>
+                        <Circle role="status" size='2em' fontSize={'small'} bg='tomato' color='white' position='absolute' top={4} right={4}>
                             {totalItems}
                         </Circle>
                     </Fade>
                 </Link>
-            </Stack >
+            </Stack>
         </Box >
     )
 }

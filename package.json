@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "unit_test": "jest",
-    "e2e_test": "playwright test"
+    "e2e_test": "playwright test --ui"
   },
   "dependencies": {
     "@chakra-ui/next-js": "^2.2.0",

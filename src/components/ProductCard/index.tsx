@@ -56,15 +56,15 @@ const ProductCard = (props: Props) => {
                 </AspectRatio>
             </Box>
             <Stack spacing="1">
-                <Text fontWeight="medium" color={useColorModeValue('gray.700', 'gray.400')}>
+                <Text fontWeight="medium" color={useColorModeValue('gray.700', 'gray.400')} as={'h3'}>
                     {name}
                 </Text>
                 <PriceTag price={price} currency="USD" />
             </Stack>
             <Stack align="center">
-                {isProductInCart && <HStack w={'100%'} justifyContent={'space-between'}><Button onClick={() => handleChangeQuantity(currentQuantity - 1)}>-</Button> <span>{currentQuantity}</span> <Button onClick={() => handleChangeQuantity(currentQuantity + 1)}>+</Button></HStack>}
+                {isProductInCart && <HStack w={'100%'} justifyContent={'space-between'}><Button data-testid={`add-minus-${id}`} onClick={() => handleChangeQuantity(currentQuantity - 1)}>-</Button> <span>{currentQuantity}</span> <Button data-testid={`add-plus-${id}`} onClick={() => handleChangeQuantity(currentQuantity + 1)}>+</Button></HStack>}
                 {!isProductInCart &&
-                    <Button colorScheme="blue" width="full" onClick={() => onAdd({ id, quantity: 1 })}>
+                    <Button data-testid={`add-${id}`} colorScheme="blue" width="full" onClick={() => onAdd({ id, quantity: 1 })}>
                         Add to cart
                     </Button>
                 }

@@ -12,7 +12,6 @@ import { USE_PRODUCTS_KEY, USE_PRODUCT_CATEGORIES } from '~/entities/products/se
 export default function Home() {
 	const { productsByCategory, categories } = useProducts();
 	const { addToCart, getFromCart } = useOrder();
-
 	const memoAddToCart = useCallback((props: OrderProduct) => addToCart(props), [addToCart]);
 
 	return (
