@@ -22,7 +22,7 @@ Due to the time limitation, I decided to sharpen my focus. My idea was that this
 -   Valuable end-to-end (e2e).
 
 ## What Was Missed (Due to Time Constraints)
-
+- List Virtualisation
 -   Cart subpage: However, you can buy products by clicking on the shopping cart.
 -   Some todos were not addressed.
 -   Unit tests for the business logic, i.e., adding a product to the cart.
