@@ -1,7 +1,5 @@
 # GetHarley FE Home Task
 
-Thank you for taking the time to review the result of my take-home exercise.
-
 [Watch the Loom Video](https://www.loom.com/share/7f0986ed022a4185b2d6ebe438f9b452) 🎥
 
 ## Link
@@ -9,8 +7,6 @@ Thank you for taking the time to review the result of my take-home exercise.
 https://ecommerce-example-mu.vercel.app/
 
 ## My Approach
-
-Due to the time limitation, I decided to sharpen my focus. My idea was that this task is not about completing every requirement but rather about showcasing my approach toward architecture, optimization, problem-solving, and UI/UX. This is why I covered things like:
 
 -   Data layering: API layer, service layer, use[Domain] hooks.
 -   Domain-driven design (DDD): 2 domains, order, and products.
