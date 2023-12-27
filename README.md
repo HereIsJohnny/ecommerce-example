@@ -1,4 +1,4 @@
-# GetHarley FE Home Task
+# Ecommerce Example
 
 [Watch the Loom Video](https://www.loom.com/share/7f0986ed022a4185b2d6ebe438f9b452) 🎥
 
